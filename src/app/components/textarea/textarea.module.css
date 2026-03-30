@@ -1,7 +1,11 @@
 .textarea {
   field-sizing: content;
   resize: none;
-  min-height: 2lh;
-  max-height: 10lh;
   width: 100%;
+  min-height: 48px;
+  padding: 12px;
+  border-radius: 12px;
+  background: white;
+  color: black;
+  font-size: 16px;
 }

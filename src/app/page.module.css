@@ -1,13 +1,8 @@
 .page {
   --background: #fafafa;
-  --foreground: #fff;
 
   --text-primary: #000;
   --text-secondary: #666;
-
-  --button-primary-hover: #383838;
-  --button-secondary-hover: #f2f2f2;
-  --button-secondary-border: #ebebeb;
 
   display: flex;
   flex: 1;
@@ -19,6 +14,7 @@
 }
 
 .main {
+  position: relative;
   display: flex;
   flex: 1;
   width: 100%;
@@ -26,8 +22,34 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-between;
-  background-color: var(--foreground);
+  background-color: var(--background);
   padding: 120px 60px;
+}
+
+.main:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 300px;
+  height: 300px;
+  opacity: 0.2;
+  border-radius: 50%;
+  background: #5db1ff;
+  filter: blur(120px);
+}
+
+.main:after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 416px;
+  height: 416px;
+  opacity: 0.2;
+  border-radius: 50%;
+  background: #061494;
+  filter: blur(120px);
 }
 
 @media (max-width: 600px) {
@@ -38,14 +60,9 @@
 
 @media (prefers-color-scheme: dark) {
   .page {
-    --background: #000;
-    --foreground: #000;
+    --background: #22232a;
 
     --text-primary: #ededed;
     --text-secondary: #999;
-
-    --button-primary-hover: #ccc;
-    --button-secondary-hover: #1a1a1a;
-    --button-secondary-border: #1a1a1a;
   }
 }

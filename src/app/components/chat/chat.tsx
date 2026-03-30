@@ -1,12 +1,12 @@
 "use client";
-import { SubmitEvent, useState } from "react";
-import { Message } from "ollama";
-import { Textarea } from "../textarea/textarea";
+import { type SubmitEvent, useState } from "react";
 import { sendMessage } from "@/app/config/ollama";
+import { Textarea } from "../textarea/textarea";
 import sx from "./chat.module.css";
+import { type ChatMessage, createMessage } from "./chat.utils";
 
 export const Chat = () => {
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
   const onSubmit = (event: SubmitEvent<HTMLFormElement>) => {
@@ -22,23 +22,33 @@ export const Chat = () => {
 
       for await (const chunk of response) {
         message += chunk.message.content;
-        setMessages([...messages, { role: "assistant", content: message }]);
+        setMessages([...messages, createMessage("assistant", message)]);
       }
 
       setIsLoading(false);
     });
   };
 
+  const onEnter = (message: string) => {
+    setMessages((prevState) => [...prevState, createMessage("user", message)]);
+  };
+
   return (
     <>
-      <ul>
+      {!messages.length && (
+        <h2 className={sx.title}>How can I help you today?</h2>
+      )}
+
+      <ul className={sx.messages}>
         {messages.map((message) => (
-          <li>{message.content}</li>
+          <li key={message.id} className={sx.message} data-role={message.role}>
+            {message.content}
+          </li>
         ))}
       </ul>
 
       <form className={sx.form} onSubmit={onSubmit}>
-        <Textarea />
+        <Textarea onEnter={onEnter} />
       </form>
     </>
   );

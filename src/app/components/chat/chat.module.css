@@ -1,3 +1,30 @@
+.title {
+  align-self: center;
+}
+
+.messages {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.message {
+  background: white;
+  color: black;
+  padding: 12px;
+  width: fit-content;
+  max-width: 60%;
+  border-radius: 12px;
+}
+
+.message[data-role="user"] {
+  align-self: flex-end;
+}
+
 .form {
   width: 100%;
 }
