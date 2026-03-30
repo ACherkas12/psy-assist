@@ -16,13 +16,19 @@ export const Chat = () => {
 
     const textarea = event.currentTarget.elements.namedItem("question");
     const question = (textarea as HTMLTextAreaElement).value;
+    const message = createMessage("assistant", "");
+
+    setMessages((prevState) => [...prevState, message]);
 
     sendMessage(question).then(async (response) => {
-      let message = "";
-
       for await (const chunk of response) {
-        message += chunk.message.content;
-        setMessages([...messages, createMessage("assistant", message)]);
+        message.content += chunk.message.content;
+
+        setMessages((prevState) => {
+          return prevState.map((item) =>
+            item.id === message.id ? { ...message } : item,
+          );
+        });
       }
 
       setIsLoading(false);

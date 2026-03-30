@@ -9,8 +9,8 @@ export const Textarea = (props: TextareaProps) => {
   const onKeyDown = (event: KeyboardEvent<HTMLTextAreaElement>) => {
     if (event.key === "Enter" && !event.shiftKey) {
       event.preventDefault();
-      event.currentTarget.form?.requestSubmit();
       onEnter(event.currentTarget.value);
+      event.currentTarget.form?.requestSubmit();
       event.currentTarget.value = "";
     }
   };
